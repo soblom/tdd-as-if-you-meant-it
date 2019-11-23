@@ -2866,27 +2866,20 @@ net.brehaut.ClojureTools = (function (SH) {
   };
 })(SyntaxHighlighter);
 </script><title>tdd-clojure -- Marginalia</title></head><body><table><tr><td class="docs"><div class="header"><h1 class="project-name"><a href="http://example.com/FIXME">tdd-clojure</a></h1><h2 class="project-version">0.1.0-SNAPSHOT</h2><br /><p>FIXME: write description</p>
-</div><div class="dependencies"><h3>dependencies</h3><table><tr><td class="dep-name">org.clojure/clojure</td><td class="dotted"><hr /></td><td class="dep-version">1.10.0</td></tr><tr><td class="dep-name">proto-repl</td><td class="dotted"><hr /></td><td class="dep-version">0.3.1</td></tr><tr><td class="dep-name">clj-kondo</td><td class="dotted"><hr /></td><td class="dep-version">2019.11.03</td></tr><tr><td class="dep-name">eftest</td><td class="dotted"><hr /></td><td class="dep-version">0.5.9</td></tr></table></div></td><td class="codes" style="text-align: center; vertical-align: middle;color: #666;padding-right:20px"><br /><br /><br />(this space intentionally left almost blank)</td></tr><tr><td class="docs"><div class="toc"><a name="toc"><h3>namespaces</h3></a><ul><li><a href="#tdd-clojure.core">tdd-clojure.core</a></li></ul></div></td><td class="codes">&nbsp;</td></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#tdd-clojure.core" name="tdd-clojure.core"><h1 class="project-name">tdd-clojure.core</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
+</div><div class="dependencies"><h3>dependencies</h3><table><tr><td class="dep-name">org.clojure/clojure</td><td class="dotted"><hr /></td><td class="dep-version">1.10.0</td></tr><tr><td class="dep-name">proto-repl</td><td class="dotted"><hr /></td><td class="dep-version">0.3.1</td></tr><tr><td class="dep-name">clj-kondo</td><td class="dotted"><hr /></td><td class="dep-version">2019.11.03</td></tr></table></div></td><td class="codes" style="text-align: center; vertical-align: middle;color: #666;padding-right:20px"><br /><br /><br />(this space intentionally left almost blank)</td></tr><tr><td class="docs"><div class="toc"><a name="toc"><h3>namespaces</h3></a><ul><li><a href="#tdd-clojure.core">tdd-clojure.core</a></li></ul></div></td><td class="codes">&nbsp;</td></tr><tr><td class="docs"><div class="docs-header"><a class="anchor" href="#tdd-clojure.core" name="tdd-clojure.core"><h1 class="project-name">tdd-clojure.core</h1><a class="toc-link" href="#toc">toc</a></a></div></td><td class="codes" /></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(ns tdd-clojure.core)</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn- reduce-equal [e1 e2]
   (if (= e1 e2) e1 false))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn diagonal-lr [pos row] (get row pos))</pre></td></tr><tr><td class="docs">
-</td><td class="codes"><pre class="brush: clojure">(defn diagonal-rl [pos row] (get row (- (count row) pos 1)))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn- diagonal-lr [pos row] (get row pos))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn- diagonal-rl [pos row] (get row (- (count row) pos 1)))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn- transpose [fields] (apply mapv vector fields))</pre></td></tr><tr><td class="docs"><p>Checks if all <code>fields</code> in a column have the same value.
   If so, that value is returned, otherwise <code>false</code>.</p>
 </td><td class="codes"><pre class="brush: clojure">(defn column-taken?
   [fields]
-  (some keyword? (doall (map #(reduce reduce-equal %) fields))))</pre></td></tr><tr><td class="docs"><p>Checks if all <code>fields</code> in a column have the same value.
-  If so, that value is returned, otherwise <code>false</code>.</p>
-</td><td class="codes"><pre class="brush: clojure">(defn row-taken?
-  [fields]
-  (column-taken? (transpose fields)))</pre></td></tr><tr><td class="docs"><p>Checks if all fields diagonally have the same value. The <code>diagonal</code> is
-  defined as a function that returns the column index for the diagonal.</p>
-
-<p>TODO: Refactor so that the predicate has the two diagonals built-in.</p>
-</td><td class="codes"><pre class="brush: clojure">(defn diagonal-taken?
-  [diagonal fields]
-  (reduce reduce-equal
+  (some keyword? (doall (map #(reduce reduce-equal %) fields))))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn row-taken? [fields] (column-taken? (transpose fields)))</pre></td></tr><tr><td class="docs">
+</td><td class="codes"><pre class="brush: clojure">(defn diagonal-taken? [diagonal fields]
+  (reduce tdd/reduce-equal
           (map-indexed diagonal fields)))</pre></td></tr><tr><td class="docs">
 </td><td class="codes"><pre class="brush: clojure">(defn all-taken? [fields]
   (not-any? nil? (flatten fields)))</pre></td></tr><tr><td class="docs">

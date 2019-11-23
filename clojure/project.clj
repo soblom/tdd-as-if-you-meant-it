@@ -5,8 +5,7 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [proto-repl "0.3.1"]
-                 [clj-kondo "2019.11.03"]
-                 [eftest "0.5.9"]]
+                 [clj-kondo "2019.11.03"]]
   :aliases {"clj-kondo" ["run" "-m" "clj-kondo.main"]}
   :plugins [[lein-kibit "0.1.7"]
             [lein-marginalia "0.9.1"]
