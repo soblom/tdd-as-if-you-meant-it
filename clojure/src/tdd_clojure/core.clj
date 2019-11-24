@@ -6,3 +6,10 @@
   [fields-taken]
   (let [no-of-fields-in-game 9]
     (>= fields-taken no-of-fields-in-game fields-taken)))
+
+(defn game-over-column?
+  "Checks if a game is over due to any column being taken by a player.
+  `col-taken-vec` is the vector of results of the checking all three columns
+  for being taken by the same player."
+  [col-taken-vec]
+  (not (nil? (some true? col-taken-vec))))
